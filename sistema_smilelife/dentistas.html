@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmileLife — Painel Dentista</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo small">🦷</div>
+      <div>
+        <h1>SmileLife</h1>
+        <small class="muted">Painel do Dentista</small>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <input id="searchDent" class="search-input" placeholder="Buscar paciente ou data..." />
+      <div class="avatar-pill" id="dentName">—</div>
+      <button id="logoutDent" class="btn ghost">Sair</button>
+    </div>
+  </header>
+
+  <div class="page container">
+    <aside class="sidebar card glass">
+      <nav>
+        <a class="active">Agenda</a>
+        <a id="navPac">Pacientes</a>
+        <a id="navPront">Prontuário</a>
+        <a id="navRel">Relatórios</a>
+        <a id="navCfg">Configurações</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <!-- Top metrics -->
+      <div class="grid-3">
+        <div class="card metric-card">
+          <h4 id="mAtendimentos">0</h4>
+          <small class="muted">Atendimentos hoje</small>
+        </div>
+        <div class="card metric-card">
+          <h4 id="mPendentes">0</h4>
+          <small class="muted">Pendentes</small>
+        </div>
+        <div class="card metric-card">
+          <h4 id="mProdu">R$ 0</h4>
+          <small class="muted">Produção (dia)</small>
+        </div>
+      </div>
+
+      <div class="grid-2 mt-18">
+        <div class="card">
+          <h3>Agenda — Hoje</h3>
+          <table class="table">
+            <thead><tr><th>Hora</th><th>Paciente</th><th>Procedimento</th><th>Status</th></tr></thead>
+            <tbody id="agendaDentista"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Próximo paciente</h3>
+          <div id="nextPatient" class="profile compact"></div>
+
+          <h3 class="mt-12">Atendimentos recentes</h3>
+          <ul id="recentList" class="list-compact"></ul>
+        </div>
+      </div>
+
+      <div class="card mt-18" id="patientsPanel">
+        <h3>Pacientes Cadastrados</h3>
+        <div class="table-actions">
+          <button id="btnAddPatient" class="btn">Novo paciente</button>
+          <input id="filterPatients" class="input-search" placeholder="Pesquisar paciente"/>
+        </div>
+
+        <table class="table" id="patientsTable">
+          <thead><tr><th>ID</th><th>Nome</th><th>CPF</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- modal (simple) -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-card card">
+      <h3 id="modalTitle">Novo Paciente</h3>
+      <label>Nome<input id="mNome" /></label>
+      <label>CPF<input id="mCpf" /></label>
+      <label>Telefone<input id="mTel" /></label>
+      <label>E-mail<input id="mEmail" /></label>
+      <div class="row-between mt-12">
+        <button id="savePatient" class="btn primary">Salvar</button>
+        <button id="closeModal" class="btn ghost">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="dentist.js"></script>
+</body>
+</html>
