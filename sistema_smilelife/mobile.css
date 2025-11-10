@@ -1,0 +1,10 @@
+/* mobile.css */
+@media (max-width:700px){
+  .auth-page{padding:18px}
+  .auth-card{padding:18px}
+  .visual-card{display:none}
+  .search-input{width:120px}
+  .avatar-pill{display:none}
+  .top-actions{gap:8px}
+  .brand-title{font-size:18px}
+}
