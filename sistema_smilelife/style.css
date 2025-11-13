@@ -1,0 +1,466 @@
+/* -------------------------------------------------------------------------- */
+/* DEFINIÇÃO DE VARIÁVEIS CSS (MODO CLARO)                    */
+/* -------------------------------------------------------------------------- */
+:root {
+    --bg-primary: #f4f6f8; /* Background principal */
+    --bg-secondary: #ffffff; /* Card/Sidebar background */
+    --color-text: #333333; /* Texto principal */
+    --color-text-light: #555555; /* Texto secundário/degrade */
+    --color-primary: #007bff; /* Azul primário (Botões, links) */
+    --color-primary-hover: #0056b3;
+    --color-secondary: #6c757d; /* Cinza secundário */
+    --color-success: #28a745; /* Verde (Pago, Receita) */
+    --color-warning: #ffc107; /* Amarelo (Pendente) */
+    --color-danger: #dc3545; /* Vermelho (Despesa, Cancelar) */
+    --border-color: #e9ecef; /* Linhas, divisores */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+/* -------------------------------------------------------------------------- */
+/* DEFINIÇÃO DE VARIÁVEIS CSS (MODO ESCURO)                 */
+/* -------------------------------------------------------------------------- */
+body.dark-mode {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --color-text: #e0e0e0;
+    --color-text-light: #aaaaaa;
+    --color-primary: #4a90e2; 
+    --color-primary-hover: #6aabff;
+    --color-secondary: #999999;
+    --color-success: #4caf50;
+    --color-warning: #ffb300;
+    --color-danger: #ef5350;
+    --border-color: #333333;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ESTILOS GERAIS E LAYOUT                           */
+/* -------------------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Transição suave para a troca de tema */
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: var(--bg-primary);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+/* SIDEBAR E NAVEGAÇÃO */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-color);
+}
+
+.logo-container {
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.full-logo {
+    max-width: 100%;
+    height: auto;
+    filter: brightness(0.8); /* Ajuste visual da logo se necessário no Dark Mode */
+}
+
+.sidebar nav a {
+    display: block;
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 600;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background-color: var(--color-primary);
+    color: var(--bg-secondary);
+}
+
+.sidebar nav a i {
+    margin-right: 10px;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+#page-title {
+    color: var(--color-text);
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+/* SEÇÕES DE CONTEÚDO */
+.content-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    padding-top: 20px;
+}
+
+.content-section.active {
+    display: block;
+    opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* CARDS E LAYOUT                               */
+/* -------------------------------------------------------------------------- */
+.cards-container, .financeiro-flex, .agendamento-flex {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    flex: 1;
+    min-width: 0; 
+}
+
+.card-small {
+    padding: 15px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: var(--color-primary);
+    font-size: 1.2em;
+}
+
+.data-number {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+/* Layouts Flexíveis Específicos */
+.financeiro-flex, .agendamento-flex {
+    align-items: stretch;
+}
+
+.financeiro-flex > div, .agendamento-flex > div {
+    flex: 1;
+}
+
+.relatorios-area, .transacoes-area, .calendario, .form-agendamento, .odontograma-area, .historico-tabs {
+    flex: 1;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--bg-secondary);
+    box-shadow: var(--shadow);
+}
+
+.full-width {
+    flex: 0 0 100%;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* ALERTA DE ESTOQUE (RN007) */
+#low-stock-alert {
+    display: none; /* Escondido por padrão */
+    border-left: 5px solid;
+    font-weight: 600;
+    animation: fadeIn 0.5s;
+}
+
+.warning-card {
+    border-left-color: var(--color-warning) !important;
+    background-color: color-mix(in srgb, var(--color-warning) 10%, var(--bg-secondary));
+    color: var(--color-text);
+}
+
+.success-card {
+    border-left-color: var(--color-success) !important;
+    background-color: color-mix(in srgb, var(--color-success) 10%, var(--bg-secondary));
+    color: var(--color-text);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* ELEMENTOS DE FORMA                              */
+/* -------------------------------------------------------------------------- */
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--color-text-light);
+    font-size: 0.9em;
+}
+
+input[type="text"], 
+input[type="number"], 
+input[type="date"], 
+input[type="datetime-local"], 
+input[type="tel"], 
+input[type="email"], 
+input[type="password"],
+select, 
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-primary);
+    color: var(--color-text);
+}
+
+button {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: color-mix(in srgb, var(--color-secondary) 80%, black);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: color-mix(in srgb, var(--color-danger) 80%, black);
+}
+
+.small-btn {
+    padding: 5px 10px;
+    font-size: 0.85em;
+    margin-left: 5px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* TABELAS                                  */
+/* -------------------------------------------------------------------------- */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background-color: var(--bg-primary);
+    font-weight: 700;
+    color: var(--color-text);
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.data-table tr:hover {
+    background-color: color-mix(in srgb, var(--bg-primary) 50%, var(--bg-secondary));
+}
+
+/* CLASSES DE STATUS/COR */
+.receita, .pago {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+.despesa {
+    color: var(--color-danger);
+    font-weight: 600;
+}
+
+.pendente {
+    color: var(--color-warning);
+    font-weight: 600;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* ESTILOS DO PRONTUÁRIO (RF002)                      */
+/* -------------------------------------------------------------------------- */
+
+/* TABS */
+.tabs-nav {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tabs-nav .tab-button {
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+    transition: border-bottom-color 0.2s, color 0.2s;
+}
+
+.tabs-nav .tab-button.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.tab-content {
+    display: none;
+    padding: 10px 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.prontuario-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.odontograma-area {
+    flex: 1 1 40%;
+}
+
+.historico-tabs {
+    flex: 1 1 60%;
+}
+
+.treatment-plan-list {
+    list-style: none;
+    padding: 0;
+}
+
+.treatment-plan-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--color-text-light);
+}
+
+.treatment-plan-list i.completed {
+    color: var(--color-success);
+    margin-right: 5px;
+}
+
+.treatment-plan-list i.pending {
+    color: var(--color-warning);
+    margin-right: 5px;
+}
+
+.odontograma-map {
+    height: 150px;
+    background-color: color-mix(in srgb, var(--color-primary) 5%, var(--bg-secondary));
+    border: 1px dashed var(--color-primary);
+    border-radius: 8px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.placeholder-text {
+    color: var(--color-primary);
+    opacity: 0.6;
+    font-style: italic;
+    text-align: center;
+}
+
+.tooth-example {
+    position: absolute;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: white;
+    background-color: var(--color-danger);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.tooth-example[data-tooth="16"] { top: 20px; left: 10%; }
+.tooth-example[data-tooth="41"] { bottom: 20px; right: 15%; }
+
+.tooth-example.restored {
+    background-color: var(--color-success);
+}
+
+/* EVOLUÇÃO CLÍNICA (RF006) */
+.evolucao-item {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: var(--bg-primary);
+}
+
+.evolucao-item p {
+    margin: 5px 0;
+    line-height: 1.4;
+    font-size: 0.9em;
+}
+
+.evolucao-nota {
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-top: 5px;
+}
+
+.evolucao-form {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+/* TEMA E CONFIGURAÇÕES (RNF) */
+.theme-toggle-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
