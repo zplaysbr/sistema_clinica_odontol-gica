@@ -1,91 +1,645 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SmileLife — Login</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="animations.css" />
-  <link rel="stylesheet" href="mobile.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smilife | Sistema de Clínica Odontológica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-blue">
-  <main class="auth-page">
-    <div class="auth-card glass">
-      <header class="auth-header">
-        <div class="brand-row">
-          <div class="logo">🦷</div>
-          <div>
-            <h1 class="brand-title">SmileLife</h1>
-            <div class="muted">Gestão moderna para clínicas odontológicas</div>
-          </div>
+<body>
+    
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Smilife - Clínica Odontológica" class="full-logo">
         </div>
-      </header>
+        <nav>
+            <a href="#" class="nav-item active" data-content="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="#" class="nav-item" data-content="agendamento"><i class="fas fa-calendar-alt"></i> Agendamento</a>
+            <a href="#" class="nav-item" data-content="pacientes"><i class="fas fa-user-injured"></i> Prontuários</a>
+            <a href="#" class="nav-item" data-content="orcamento"><i class="fas fa-file-invoice-dollar"></i> Orçamentos</a>
+            <a href="#" class="nav-item" data-content="dentistas"><i class="fas fa-user-md"></i> Dentistas</a> 
+            <a href="#" class="nav-item" data-content="relatorios"><i class="fas fa-chart-bar"></i> Relatórios</a> 
+            <a href="#" class="nav-item" data-content="financeiro"><i class="fas fa-dollar-sign"></i> Financeiro</a>
+            <a href="#" class="nav-item" data-content="estoque"><i class="fas fa-box-open"></i> Estoque</a>
+            <a href="#" class="nav-item" data-content="config"><i class="fas fa-cogs"></i> Configurações</a>
+        </nav>
+    </div>
+    
+    <div class="main-content">
+        <header>
+            <h1 id="page-title">Dashboard Inicial</h1>
+        </header>
 
-      <form id="loginForm" class="form card-inner" autocomplete="off">
-        <label class="label">E-mail ou CPF
-          <input id="loginUser" type="text" placeholder="ex: dentista@smile.com ou 000.000.000-00" autocomplete="username" />
-        </label>
+        <section id="dashboard" class="content-section active">
+            <h2>Visão Geral do Dia</h2>
+            <div class="cards-container">
+                <div class="card card-animated">
+                    <h3><i class="fas fa-calendar-check"></i> Consultas Hoje</h3>
+                    <p class="data-number" id="appointments-today">12</p>
+                </div>
+                <div class="card card-animated">
+                    <h3><i class="fas fa-clock"></i> Próximo Paciente</h3>
+                    <p>Ana Silva (14:30)</p>
+                </div>
+                <div class="card card-animated">
+                    <h3><i class="fas fa-chart-line"></i> Receita Mês</h3>
+                    <p class="data-number">R$ 15.400,00</p>
+                </div>
+            </div>
+            
+            <div id="low-stock-alert" class="card card-animated full-width mt-20 warning-card">
+                <h3><i class="fas fa-exclamation-triangle"></i> Alerta de Estoque Mínimo (RN007)</h3>
+                <p id="low-stock-message">Verificando...</p>
+            </div>
+            
+            <div class="card card-animated full-width mt-20">
+                <h3><i class="fas fa-bell"></i> Lembretes Pendentes (24h)</h3>
+                <p>5 lembretes automáticos de consulta a serem enviados. (RN002)</p>
+            </div>
+        </section>
 
-        <label class="label">Senha
-          <div class="password-row">
-            <input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" />
-            <button type="button" class="icon-btn" id="togglePwd" aria-label="Mostrar senha">👁️</button>
-          </div>
-        </label>
+        <section id="agendamento" class="content-section">
+            <h2>📅 Agendamento de Consultas</h2>
+            <div class="agendamento-flex">
+                <div class="calendario card-animated">
+                    <h3>Calendário (Nov 2025)</h3>
+                    <p>Clique em um horário para agendar.</p>
+                </div>
+                <div class="form-agendamento card-animated">
+                    <h3>Novo Agendamento</h3>
+                    <form id="agendamento-form">
+                        <label for="paciente">Paciente:</label>
+                        <input type="text" id="paciente" name="paciente" placeholder="Buscar/Novo Paciente" required>
+                        
+                        <label for="dentista">Dentista:</label>
+                        <select id="dentista" name="dentista" required>
+                            <option value="">Selecione o Dentista</option>
+                            <option value="dr_joao">Dr. João (CRO-SP 12345)</option>
+                            <option value="dra_maria">Dra. Maria (CRO-SP 67890)</option>
+                        </select>
+                        
+                        <label for="hora">Data e Hora:</label>
+                        <input type="datetime-local" id="hora" name="hora" required>
+                        
+                        <button type="submit" class="btn-primary">Agendar Consulta</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card card-animated full-width mt-20">
+                <h3>Consultas Agendadas para Hoje (Gerenciar RF001)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Paciente</th>
+                            <th>Dentista</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendamentos-hoje">
+                        <tr data-id="1">
+                            <td>10:00</td>
+                            <td>Ana Silva</td>
+                            <td>Dr. João</td>
+                            <td class="pago">Confirmada</td>
+                            <td>
+                                <button class="btn-secondary small-btn action-reagendar" data-id="1">Reagendar</button>
+                                <button class="btn-danger small-btn action-cancelar" data-id="1">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr data-id="2">
+                            <td>14:30</td>
+                            <td>Bruno Costa</td>
+                            <td>Dra. Maria</td>
+                            <td class="pendente">Aguardando</td>
+                            <td>
+                                <button class="btn-secondary small-btn action-reagendar" data-id="2">Reagendar</button>
+                                <button class="btn-danger small-btn action-cancelar" data-id="2">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="pacientes" class="content-section">
+            <h2>👥 Gerenciamento de Pacientes</h2>
 
-        <div class="row-between small">
-          <label class="checkbox"><input id="remember" type="checkbox" /> Manter conectado</label>
-          <a href="#" class="link muted">Esqueci a senha</a>
-        </div>
+            <div class="tabs-nav main-tabs">
+                <button class="tab-button active" data-tab="prontuario-view"><i class="fas fa-file-medical"></i> Buscar / Prontuário</button>
+                <button class="tab-button" data-tab="cadastro-view"><i class="fas fa-user-plus"></i> Novo Cadastro (RN003)</button>
+            </div>
 
-        <p id="loginError" class="error"></p>
+            <div class="main-tab-content active" id="prontuario-view">
+                <div class="card-animated full-width" style="margin-bottom: 20px;">
+                    <h3 style="display: inline-block; margin-right: 15px;">Buscar Paciente:</h3>
+                    <input type="text" placeholder="Digite nome, CPF ou ID do paciente" style="width: 300px;">
+                    <button class="btn-primary" style="margin-left: 10px;">Buscar</button>
+                    <button class="btn-secondary" style="margin-left: 10px;">Listar Todos</button>
+                </div>
+                
+                <div class="card-animated full-width" style="margin-bottom: 20px;">
+                    <h3>Paciente Atual: **Laura Gonçalves** (ID: 456)</h3>
+                    <p>Data de Nasc.: 25/08/1990 | Telefone: (11) 98765-4321 | Email: laura@email.com</p>
+                    <button class="btn-secondary">Editar Dados</button>
+                </div>
 
-        <div class="row-between">
-          <button type="submit" class="btn primary">Entrar</button>
-          <button onclick="window.location.href='register.html'" class="btn ghost">Criar conta</button>
-        </div>
+                <div class="prontuario-container">
+                    <div class="odontograma-area card-animated">
+                        <h3>Odontograma Interativo (RF002)</h3>
+                        <div class="odontograma-map">
+                            <p class="placeholder-text">Clique em um dente para selecionar a área de tratamento.</p>
+                            <div class="tooth-example" data-tooth="16" title="Dente 16 - Cárie Ativa">16</div>
+                            <div class="tooth-example" data-tooth="11" title="Dente 11 - Incisivo Central">11</div>
+                            <div class="tooth-example" data-tooth="21" title="Dente 21 - Incisivo Central">21</div>
+                            <div class="tooth-example" data-tooth="26" title="Dente 26 - Selante">26</div>
 
-        <div class="divider"><span>ou</span></div>
+                            <div class="tooth-example" data-tooth="47" title="Dente 47 - Necessita Endodontia">47</div>
+                            <div class="tooth-example" data-tooth="41" title="Dente 41 - Restaurado (Sucesso)" class="restored">41</div>
+                            <div class="tooth-example" data-tooth="31" title="Dente 31 - Hígido">31</div>
+                            <div class="tooth-example" data-tooth="37" title="Dente 37 - Extração Indicada">37</div>
+                        </div>
 
-        <div class="alt-actions">
-          <button type="button" class="btn ghost" id="demoDentista">Demo Dentista</button>
-          <button type="button" class="btn ghost" id="demoPaciente">Demo Paciente</button>
-        </div>
-      </form>
+                        <div class="odontograma-status">
+                            Dente Selecionado: <span id="selected-tooth-display">Nenhum</span>
+                        </div>
 
-      <footer class="auth-footer small muted">Protótipo front-end • Projeto SmileLife</footer>
+                        <h3 style="margin-top: 20px;">Plano de Tratamento</h3>
+                        <ul class="treatment-plan-list">
+                            <li><i class="fas fa-check-circle completed"></i> Restauração no Dente 16 (Concluído)</li>
+                            <li><i class="fas fa-clock pending"></i> Profilaxia (Agendado)</li>
+                            <li><i class="fas fa-clock pending"></i> Extração Dente Siso 38 (Aguardando Autorização Convênio)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="historico-tabs card-animated">
+                        <h3>Histórico Clínico</h3>
+                        <div class="tabs-nav">
+                            <button class="tab-button active" data-tab="anamnese">Anamnese</button>
+                            <button class="tab-button" data-tab="evolucao">Evolução Clínica (RF006)</button>
+                            <button class="tab-button" data-tab="exames">Exames/Radiografias</button>
+                        </div>
+
+                        <div class="tab-content active" id="anamnese">
+                            <h4>Histórico Médico (Anamnese)</h4>
+                            <p>Alergias: Penicilina.</p>
+                            <p>Doenças Pré-existentes: Hipertensão (controlada).</p>
+                            
+                            <form>
+                                <label for="anamnese-notas">Notas detalhadas da Anamnese inicial:</label>
+                                <textarea id="anamnese-notas" rows="6" placeholder="Registrar informações detalhadas de saúde, hábitos, e queixas principais..."></textarea>
+                                <button type="submit" class="btn-primary full-width-btn" style="margin-top: 10px;">Salvar Anamnese</button>
+                            </form>
+                        </div>
+
+                        <div class="tab-content" id="evolucao">
+                            <h4>Registro de Evolução Clínica (RF006)</h4>
+                            <form id="registro-evolucao-form">
+                                <label for="data_evolucao">Data:</label>
+                                <input type="date" id="data_evolucao" value="2025-11-12" required>
+
+                                <label for="dentista_evolucao">Dentista Responsável:</label>
+                                <select id="dentista_evolucao" required>
+                                    <option value="Dr. Pedro">Dr. Pedro Albuquerque (CRO: 54321)</option>
+                                    <option value="Dra. Ana">Dra. Ana Costa (CRO: 98765)</option>
+                                </select>
+
+                                <label for="procedimento_evolucao">Procedimento/Dente Selecionado:</label>
+                                <input type="text" id="procedimento_evolucao" placeholder="Ex: Restauração no Dente 37 / Profilaxia." required>
+
+                                <label for="nota_evolucao">Nota Clínica Detalhada:</label>
+                                <textarea id="nota_evolucao" rows="4" placeholder="Detalhes do procedimento, materiais utilizados e orientações pós-atendimento." required></textarea>
+
+                                <button type="submit" class="btn-primary full-width-btn">Registrar Evolução</button>
+                            </form>
+                            
+                            <h4 style="margin-top: 20px;">Histórico (Últimos Registros)</h4>
+                            <div id="lista-evolucao-existente">
+                                <div class="evolucao-item">
+                                    <p><strong>10/11/2025:</strong> Extração Dente Siso 38 (Procedimento Cirúrgico). Dentista: Dr. Pedro.</p>
+                                    <p class="evolucao-nota">Procedimento realizado sem intercorrências. Prescrição de Amoxicilina 500mg por 7 dias. Retorno em 7 dias para remoção de sutura.</p>
+                                </div>
+                                <div class="evolucao-item">
+                                    <p><strong>01/09/2025:</strong> Restauração no Dente 16. Dentista: Dra. Ana.</p>
+                                    <p class="evolucao-nota">Cárie de esmalte removida e obturação com resina composta A3. Orientação de higiene reforçada.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="exames">
+                            <h4>Exames e Radiografias</h4>
+                            <p>Simulação de sistema de arquivos e imagens (Digitalização de Radiografias). O sistema deve permitir upload de arquivos (Imagens, PDF).</p>
+                            <p class="placeholder-text" style="position: static; transform: none; text-align: left; margin-top: 15px;">**Arquivo:** Radiografia-Periapical-16.jpg (12/09/2025) - <a href="#">Visualizar</a></p>
+                            <p class="placeholder-text" style="position: static; transform: none; text-align: left;">**Arquivo:** Laudo-Biopsia-01.pdf (20/10/2025) - <a href="#">Visualizar</a></p>
+                            <button class="btn-secondary" style="margin-top: 15px;">Fazer Upload de Exame</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-tab-content" id="cadastro-view">
+                <div class="card-animated">
+                    <h3>Novo Cadastro de Paciente (RN003)</h3>
+                    <form id="cadastro-paciente-form">
+                        <label for="nome_completo">Nome Completo:</label>
+                        <input type="text" id="nome_completo" required>
+
+                        <label for="data_nascimento">Data de Nascimento:</label>
+                        <input type="date" id="data_nascimento" required>
+
+                        <label for="telefone">Telefone de Contato:</label>
+                        <input type="tel" id="telefone" placeholder="(xx) xxxxx-xxxx" required>
+
+                        <label for="email_paciente">Email:</label>
+                        <input type="email" id="email_paciente">
+
+                        <label for="convenio">Convênio Odontológico:</label>
+                        <select id="convenio">
+                            <option value="">(Nenhum)</option>
+                            <option value="uniodonto">Uniodonto</option>
+                            <option value="odontoprev">Odontoprev</option>
+                        </select>
+                        
+                        <p style="margin-top: 20px; color: var(--color-danger);">**RN003: Os campos Nome, Data de Nasc. e Telefone são obrigatórios para o cadastro inicial.**</p>
+                        
+                        <button type="submit" class="btn-primary">Cadastrar Paciente e Abrir Prontuário</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <section id="orcamento" class="content-section">
+            <h2>💵 Emissão de Orçamentos</h2>
+            <div class="agendamento-flex">
+                <div class="form-agendamento card-animated">
+                    <h3>Gerar Orçamento (RN005)</h3>
+                    <form id="orcamento-form">
+                        <label for="paciente_orcamento">Paciente:</label>
+                        <input type="text" id="paciente_orcamento" name="paciente_orcamento" placeholder="Buscar Paciente" required>
+                        
+                        <label for="procedimento_1">Procedimento 1:</label>
+                        <select id="procedimento_1" name="procedimento_1" required>
+                            <option value="">Selecione o Procedimento</option>
+                            <option value="250.00">Profilaxia e Limpeza (R$ 250,00)</option>
+                            <option value="450.00">Restauração em Resina (R$ 450,00)</option>
+                            <option value="800.00">Extração Dente Siso (R$ 800,00)</option>
+                            <option value="1500.00">Tratamento de Canal (R$ 1.500,00)</option>
+                        </select>
+                        
+                        <label for="procedimento_2">Procedimento 2 (Opcional):</label>
+                        <select id="procedimento_2" name="procedimento_2">
+                            <option value="0">Nenhum</option>
+                            <option value="250.00">Profilaxia e Limpeza (R$ 250,00)</option>
+                            <option value="450.00">Restauração em Resina (R$ 450,00)</option>
+                            <option value="800.00">Extração Dente Siso (R$ 800,00)</option>
+                            <option value="1500.00">Tratamento de Canal (R$ 1.500,00)</option>
+                        </select>
+                        
+                        <button type="submit" class="btn-primary">Calcular e Gerar PDF / Aprovar</button>
+                    </form>
+                </div>
+
+                <div class="relatorios-area card-animated">
+                    <h3>Resumo do Orçamento</h3>
+                    <p>Detalhes do custo e opções de pagamento serão exibidos aqui após a geração.</p>
+                    <div style="margin-top: 20px;">
+                        <h4>Total Estimado:</h4>
+                        <p class="data-number receita" id="total-orcamento">R$ 0,00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dentistas" class="content-section">
+            <h2>🦷 Gerenciamento de Dentistas (RN004)</h2>
+            <div class="financeiro-flex"> <div class="relatorios-area card-animated">
+                    <h3>Lista de Profissionais</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CRO</th>
+                                <th>Especialidade</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dr. João Silva</td>
+                                <td>SP 12345</td>
+                                <td>Clínico Geral</td>
+                                <td class="pago">Ativo</td>
+                            </tr>
+                            <tr>
+                                <td>Dra. Maria Alves</td>
+                                <td>SP 67890</td>
+                                <td>Ortodontista</td>
+                                <td class="pago">Ativo</td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Carlos Lima</td>
+                                <td>SP 11223</td>
+                                <td>Endodontista</td>
+                                <td class="pendente">Férias</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="transacoes-area card-animated">
+                    <h3>Cadastrar Novo Dentista</h3>
+                    <form id="cadastro-dentista-form">
+                        <label for="nome_dentista">Nome Completo:</label>
+                        <input type="text" id="nome_dentista" name="nome_dentista" required>
+                        
+                        <label for="cro">Número do CRO:</label>
+                        <input type="text" id="cro" name="cro" placeholder="SP XXXXX" required>
+                        
+                        <label for="especialidade">Especialidade:</label>
+                        <select id="especialidade" name="especialidade" required>
+                            <option value="">Selecione</option>
+                            <option value="clinico">Clínico Geral</option>
+                            <option value="orto">Ortodontista</option>
+                            <option value="endo">Endodontista</option>
+                        </select>
+                        
+                        <button type="submit" class="btn-primary">Registrar Dentista</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="relatorios" class="content-section">
+            <h2>📊 Dashboards e Relatórios Gerenciais (RF005)</h2>
+            <div class="cards-container">
+                <div class="card card-animated full-width">
+                    <h3>Indicadores Chave (RN006)</h3>
+                    <div class="cards-container" style="margin-top: 0; margin-bottom: 20px;">
+                        <div class="card card-small">
+                            <h4>Agendamentos Mês</h4>
+                            <p class="data-number">98 <span class="receita">(+15%)</span></p>
+                        </div>
+                        <div class="card card-small">
+                            <h4>Taxa de Cancelamento</h4>
+                            <p class="data-number despesa">4%</p>
+                        </div>
+                        <div class="card card-small">
+                            <h4>Atend. Dr. João (Mês)</h4>
+                            <p class="data-number">35</p>
+                        </div>
+                        <div class="card card-small">
+                            <h4>Ticket Médio</h4>
+                            <p class="data-number receita">R$ 520,00</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Geração de Relatórios Detalhados (RN006)</h3>
+                    <div class="agendamento-flex" style="align-items: flex-start;">
+                        <div class="form-agendamento card-animated" style="flex: 1 1 60%;">
+                            <h4>Relatório de Produção e Faturamento</h4>
+                            <form id="gerar-relatorio-form">
+                                <label for="tipo_relatorio">Tipo de Relatório:</label>
+                                <select id="tipo_relatorio" name="tipo_relatorio" required>
+                                    <option value="financeiro">Produção Financeira (Receitas/Despesas)</option>
+                                    <option value="atendimento">Agendamentos Realizados e Cancelados</option>
+                                    <option value="evolucao">Evolução de Tratamentos por Paciente</option>
+                                </select>
+                                
+                                <label for="periodo">Período:</label>
+                                <select id="periodo" name="periodo" required>
+                                    <option value="mensal">Últimos 30 dias</option>
+                                    <option value="trimestral">Último Trimestre</option>
+                                </select>
+                                
+                                <button type="submit" class="btn-primary">Gerar Relatório Detalhado</button>
+                            </form>
+                        </div>
+
+                        <div class="relatorios-area card-animated" style="flex: 1 1 40%;">
+                            <h4>Últimos Relatórios Gerados</h4>
+                            <ul class="treatment-plan-list">
+                                <li><i class="fas fa-file-pdf"></i> Fin. Nov 2025 - **Alto Risco** (Baixa Receita)</li>
+                                <li><i class="fas fa-file-pdf"></i> Agenda Out 2025 - 90% Ocupação</li>
+                                <li><i class="fas fa-file-pdf"></i> Atend. Dr. João - Out 2025</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financeiro" class="content-section">
+            <h2>💰 Gestão Financeira (Fluxo de Caixa)</h2>
+            <div class="financeiro-flex">
+                <div class="relatorios-area card-animated">
+                    <h3>Relatórios e Fluxo de Caixa</h3>
+                    <div class="cards-container" style="margin-top: 0; margin-bottom: 20px;">
+                        <div class="card">
+                            <h3>A Receber (30 dias)</h3>
+                            <p class="data-number receita">R$ 4.200,00</p>
+                        </div>
+                        <div class="card">
+                            <h3>A Pagar (30 dias)</h3>
+                            <p class="data-number despesa">R$ 1.850,00</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Transações Recentes</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transacoes-recentes">
+                            <tr>
+                                <td>26/11</td>
+                                <td>Pagamento Tratamento (João S.)</td>
+                                <td class="receita">Receita</td>
+                                <td class="receita">R$ 500,00</td>
+                                <td class="pago">Pago</td>
+                            </tr>
+                            <tr>
+                                <td>25/11</td>
+                                <td>Compra de Luvas Descartáveis</td>
+                                <td class="despesa">Despesa</td>
+                                <td class="despesa">R$ 150,00</td>
+                                <td class="pago">Pago</td>
+                            </tr>
+                            <tr>
+                                <td>30/11</td>
+                                <td>Parcela Tratamento (Maria A.)</td>
+                                <td class="receita">Receita</td>
+                                <td class="receita">R$ 300,00</td>
+                                <td class="pendente">Pendente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="transacoes-area card-animated">
+                    <h3>Registrar Transação (RF003)</h3>
+                    <form id="registrar-transacao-form">
+                        <label for="descricao">Descrição:</label>
+                        <input type="text" id="descricao" required>
+                        
+                        <label for="tipo_transacao">Tipo:</label>
+                        <select id="tipo_transacao" required>
+                            <option value="receita">Receita</option>
+                            <option value="despesa">Despesa</option>
+                        </select>
+                        
+                        <label for="valor">Valor:</label>
+                        <input type="number" id="valor" step="0.01" required>
+                        
+                        <button type="submit" class="btn-primary">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="estoque" class="content-section">
+            <h2>📦 Controle de Estoque (RN007)</h2>
+            <div class="financeiro-flex"> <div class="relatorios-area card-animated">
+                    <h3>Itens Atuais em Estoque</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantidade</th>
+                                <th>Mínimo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-estoque">
+                            </tbody>
+                    </table>
+                </div>
+                
+                <div class="transacoes-area card-animated">
+                    <h3>Adicionar / Ajustar Estoque</h3>
+                    <form id="ajuste-estoque-form">
+                        <label for="item_estoque">Item:</label>
+                        <input list="itens-estoque" id="item_estoque" name="item_estoque" required placeholder="Ex: Resina Composta A2">
+                        <datalist id="itens-estoque">
+                            <option value="Luvas Descartáveis (Caixa)"></option>
+                            <option value="Resina Composta A3"></option>
+                            <option value="Agulhas Anestésicas"></option>
+                        </datalist>
+                        
+                        <label for="quantidade_estoque">Quantidade:</label>
+                        <input type="number" id="quantidade_estoque" name="quantidade_estoque" required>
+                        
+                        <label for="tipo_ajuste">Tipo de Ajuste:</label>
+                        <select id="tipo_ajuste" name="tipo_ajuste" required>
+                            <option value="entrada">Entrada (Compra)</option>
+                            <option value="saida">Saída (Uso/Descarte)</option>
+                        </select>
+                        
+                        <button type="submit" class="btn-primary">Registrar Ajuste</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+       <section id="config" class="content-section">
+            <h2>⚙️ Configurações do Sistema</h2>
+            
+            <div class="tabs-nav main-tabs-config">
+                <button class="tab-button active" data-tab="config-geral"><i class="fas fa-sliders-h"></i> Geral</button>
+                <button class="tab-button" data-tab="config-acesso"><i class="fas fa-shield-alt"></i> Perfis de Acesso</button>
+                <button class="tab-button" data-tab="config-sistema"><i class="fas fa-building"></i> Dados da Clínica</button>
+            </div>
+
+            <div class="main-tab-content active" id="config-geral">
+                <div class="card card-animated full-width">
+                    <h3>Configurações Gerais</h3>
+                    
+                    <div class="theme-toggle-container">
+                        <p>Mudar Tema (Dia / Noite) (RNF: Usabilidade)</p>
+                        <button id="theme-toggle" class="btn-secondary">
+                            <i class="fas fa-moon"></i> Ativar Modo Escuro
+                        </button>
+                    </div>
+
+                    <hr style="margin: 20px 0; border-color: var(--border-color);">
+                    <p>Definir horário de funcionamento padrão, cores do sistema, e outras configurações.</p>
+                </div>
+            </div>
+
+            <div class="main-tab-content" id="config-acesso">
+                <div class="financeiro-flex">
+                    <div class="relatorios-area card-animated">
+                        <h3>Usuários e Permissões</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome de Usuário</th>
+                                    <th>Perfil</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>admin.geral</td>
+                                    <td class="receita">Administrador</td>
+                                    <td><button class="btn-secondary small-btn">Editar</button></td>
+                                </tr>
+                                <tr>
+                                    <td>secretaria.ana</td>
+                                    <td class="pago">Secretária</td>
+                                    <td><button class="btn-secondary small-btn">Editar</button></td>
+                                </tr>
+                                <tr>
+                                    <td>dentista.joao</td>
+                                    <td class="despesa">Dentista</td>
+                                    <td><button class="btn-secondary small-btn">Editar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="transacoes-area card-animated">
+                        <h3>Cadastrar Novo Usuário</h3>
+                        <form id="cadastro-usuario-form">
+                            <label for="novo_usuario">Nome de Usuário:</label>
+                            <input type="text" id="novo_usuario" required>
+                            
+                            <label for="senha_usuario">Senha:</label>
+                            <input type="password" id="senha_usuario" required>
+                            
+                            <label for="perfil_acesso">Perfil de Acesso:</label>
+                            <select id="perfil_acesso" required>
+                                <option value="admin">Administrador (Total)</option>
+                                <option value="secretaria">Secretária (Agenda, Cadastro)</option>
+                                <option value="dentista">Dentista (Prontuário, Agenda)</option>
+                            </select>
+                            
+                            <button type="submit" class="btn-primary">Criar Usuário</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-tab-content" id="config-sistema">
+                <div class="card card-animated full-width">
+                    <h3>Dados da Clínica</h3>
+                    <p>Aqui seriam preenchidos dados como: Nome Fantasia, CNPJ, Endereço e Contatos Oficiais. Essas informações seriam usadas em Orçamentos e Relatórios.</p>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <aside class="auth-visual">
-      <div class="visual-card">
-        <!-- Visual with subtle animation -->
-        <svg viewBox="0 0 600 360" class="visual-svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#0077ff"/>
-              <stop offset="1" stop-color="#00b0ff"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="600" height="360" rx="18" fill="url(#g1)" opacity="0.12"/>
-          <!-- simple illustration -->
-          <g transform="translate(40,40)" fill="#fff" opacity="0.95">
-            <rect x="0" y="0" width="240" height="40" rx="8" fill="#fff" opacity="0.05"></rect>
-            <rect x="0" y="64" width="520" height="32" rx="8" fill="#fff" opacity="0.06"></rect>
-            <rect x="0" y="112" width="260" height="160" rx="12" fill="#fff" opacity="0.03"></rect>
-            <circle cx="420" cy="120" r="48" fill="#fff" opacity="0.04"></circle>
-          </g>
-        </svg>
-
-        <div class="visual-text">
-          <h3>Agendamento inteligente</h3>
-          <p class="muted">Agenda visual, prontuário digital e indicadores — tudo em um único painel.</p>
-        </div>
-      </div>
-    </aside>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
