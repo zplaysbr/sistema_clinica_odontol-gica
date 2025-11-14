@@ -609,4 +609,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const relatorioForm = document.getElementById("gerar-relatorio-form");
+
+    relatorioForm.addEventListener("submit", function (e) {
+        e.preventDefault(); // Evita o reload da página
+
+        const tipo = document.getElementById("tipo_relatorio").value;
+        const periodo = document.getElementById("periodo").value;
+
+        // Simulação de geração de relatório
+        alert(`Relatório "${tipo}" para o período "${periodo}" gerado com sucesso!`);
+
+    });
+});
+
+
 
