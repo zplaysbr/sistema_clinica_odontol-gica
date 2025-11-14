@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smilife | Sistema de Clínica Odontológica</title>
+    <title>SmileLife | Sistema de Clínica Odontológica</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -13,7 +13,7 @@
     
     <div class="sidebar">
         <div class="logo-container">
-            <img src="logo.png" alt="Logo Smilife - Clínica Odontológica" class="full-logo">
+            <img src="logo.png" alt="SmileLife - Clínica Odontológica" class="full-logo">
         </div>
         <nav>
             <a href="#" class="nav-item active" data-content="dashboard"><i class="fas fa-home"></i> Dashboard</a>
@@ -27,7 +27,7 @@
             <a href="#" class="nav-item" data-content="config"><i class="fas fa-cogs"></i> Configurações</a>
         </nav>
     </div>
-    
+
     <div class="main-content">
         <header>
             <h1 id="page-title">Dashboard Inicial</h1>
@@ -131,8 +131,8 @@
             <h2>👥 Gerenciamento de Pacientes</h2>
 
             <div class="tabs-nav main-tabs">
-                <button class="tab-button active" data-tab="prontuario-view"><i class="fas fa-file-medical"></i> Buscar / Prontuário</button>
-                <button class="tab-button" data-tab="cadastro-view"><i class="fas fa-user-plus"></i> Novo Cadastro (RN003)</button>
+                    <button class="tab-button active" data-tab="prontuario-view">Buscar / Prontuário</button>
+                    <button class="tab-button" data-tab="cadastro-view">Novo Cadastro (RN003)</button>
             </div>
 
             <div class="main-tab-content active" id="prontuario-view">
@@ -142,12 +142,13 @@
                     <button class="btn-primary" style="margin-left: 10px;">Buscar</button>
                     <button class="btn-secondary" style="margin-left: 10px;">Listar Todos</button>
                 </div>
-                
+                                
                 <div class="card-animated full-width" style="margin-bottom: 20px;">
                     <h3>Paciente Atual: **Laura Gonçalves** (ID: 456)</h3>
                     <p>Data de Nasc.: 25/08/1990 | Telefone: (11) 98765-4321 | Email: laura@email.com</p>
                     <button class="btn-secondary">Editar Dados</button>
                 </div>
+                
 
                 <div class="prontuario-container">
                     <div class="odontograma-area card-animated">
@@ -160,7 +161,7 @@
                             <div class="tooth-example" data-tooth="26" title="Dente 26 - Selante">26</div>
 
                             <div class="tooth-example" data-tooth="47" title="Dente 47 - Necessita Endodontia">47</div>
-                            <div class="tooth-example" data-tooth="41" title="Dente 41 - Restaurado (Sucesso)" class="restored">41</div>
+                            <div class="tooth-example restored" data-tooth="41" title="Dente 41 - Restaurado (Sucesso)">41</div>
                             <div class="tooth-example" data-tooth="31" title="Dente 31 - Hígido">31</div>
                             <div class="tooth-example" data-tooth="37" title="Dente 37 - Extração Indicada">37</div>
                         </div>
@@ -564,11 +565,11 @@
                 <div class="card card-animated full-width">
                     <h3>Configurações Gerais</h3>
                     
-                    <div class="theme-toggle-container">
-                        <p>Mudar Tema (Dia / Noite) (RNF: Usabilidade)</p>
-                        <button id="theme-toggle" class="btn-secondary">
-                            <i class="fas fa-moon"></i> Ativar Modo Escuro
+                    <div 
+                        <button id="theme-toggle" class="btn-secondary" aria-label="Alternar tema claro/escuro">
+                        <i class="fas fa-moon"></i> Ativar Modo Escuro
                         </button>
+                        
                     </div>
 
                     <hr style="margin: 20px 0; border-color: var(--border-color);">
