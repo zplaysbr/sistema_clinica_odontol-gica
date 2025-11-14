@@ -587,3 +587,26 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Troca de abas principais (configurações)
+    const configTabButtons = document.querySelectorAll(".main-tabs-config .tab-button");
+    const configTabContents = document.querySelectorAll("#config .main-tab-content");
+
+    configTabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            // Remover classe ativa de todos os botões e conteúdos
+            configTabButtons.forEach(btn => btn.classList.remove("active"));
+            configTabContents.forEach(content => content.classList.remove("active"));
+
+            // Adicionar classe ativa ao botão clicado e à aba correspondente
+            button.classList.add("active");
+            const tabId = button.getAttribute("data-tab");
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+        });
+    });
+});
+
+
